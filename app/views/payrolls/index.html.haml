@@ -1,16 +1,21 @@
 %h1 Payrolls
 
+- flash.each do |type, message|
+  .flash{ class: "flash-#{type}" }
+    = message
+
+
 - if @payrolls.any?
   %ul
     - @payrolls.each do |payroll|
       %li
-        = payroll.starts_at.to_s(:short)
+        = payroll.starts_at.strftime("%d/%m/%Y")
         &mdash;
-        = payroll.ends_at.to_s(:short)
+        = payroll.ends_at.strftime("%d/%m/%Y")
         = link_to '[X]', payroll, method: :delete
 - else
   %p no payrolls
 
 
-= form_for @new_payroll do
-  = button_tag 'Create new payroll'
+= form_for @new_payroll do |f|
+  = f.submit 'Create new payroll'
